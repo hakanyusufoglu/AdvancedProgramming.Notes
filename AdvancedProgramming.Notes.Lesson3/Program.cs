@@ -33,41 +33,58 @@
 
 #region ref return
 
-int b = 5;
+//ref return özelliği; performans gerektiren durumlarda kodu optimize etmek ve özellikle değişkenlerdeki lüzumsuz yere olabilecek veri tekrarlarını engellemek için oldukça kullanışlı bir özelliktir. (fazla deep copy'i engeller)
 
-// b, c ve a değişkenleri bellekte aynı yeri işaret ederler.
-// Yani a değişkeni b değişkeninin referansını tutar.
-// c değişkeni ise a değişkeninin referansını tutar.
-// Dolayısıyla a değişkeni üzerinde yapılan değişiklikler c ve b değişkenlerine de yansır.
+//int b = 5;
 
-
-//c değişkenin de bir değişiklik olursa b değişkeni de değişir.
-ref int c = ref X(ref b);
-
-//Critical: Bu şekilde kullanım ise X metodundan dönen değeri direkt olarak tutar. y bir referansı artık tutmaz. y değiştiğin de b ve c değerleri değişmez
-int y = X(ref b);
-
-y = 21;
-
-Console.WriteLine($"B değişkeni: {b} - C değişkeni {c} - Y değişkeni {y}");
+//// b, c ve a değişkenleri bellekte aynı yeri işaret ederler.
+//// Yani a değişkeni b değişkeninin referansını tutar.
+//// c değişkeni ise a değişkeninin referansını tutar.
+//// Dolayısıyla a değişkeni üzerinde yapılan değişiklikler c ve b değişkenlerine de yansır.
 
 
-ref int X(ref int a)
-{
-    //a değişkeni burada değiştirildiğn de b, c değişkenlerin değeri de değişir.
-    a = 124;
-    return ref a;
-}
+////c değişkenin de bir değişiklik olursa b değişkeni de değişir.
+//ref int c = ref X(ref b);
+
+////Critical: Bu şekilde kullanım ise X metodundan dönen değeri direkt olarak tutar. y bir referansı artık tutmaz. y değiştiğin de b ve c değerleri değişmez
+//int y = X(ref b);
+
+//y = 21;
+
+//Console.WriteLine($"B değişkeni: {b} - C değişkeni {c} - Y değişkeni {y}");
 
 
-//Citical: Bu metot hata verir. Local değişkenlerin referansını döndüremezsiniz. Değişken, dışarıdan gelmelidir. Sınıfın field'ı veya parametresi referansı döndürülebilir.
-
-//ref int Z()
+//ref int X(ref int a)
 //{
-
-//    int a = 5;
+//    //a değişkeni burada değiştirildiğn de b, c değişkenlerin değeri de değişir.
+//    a = 124;
 //    return ref a;
 //}
 
-Console.Read();
+
+////Citical: Bu metot hata verir. Local değişkenlerin referansını döndüremezsiniz. Değişken, dışarıdan gelmelidir. Sınıfın field'ı veya parametresi referansı döndürülebilir.
+
+////ref int Z()
+////{
+
+////    int a = 5;
+////    return ref a;
+////}
+
+//Console.Read();
+#endregion
+
+#region ref locals
+//Targeta karşılık elemanın indeksi geri döndüren bir örnek
+
+
+//Bu işlem o değişkenin değeri p'ye atamaktadır.
+char o = 'a';
+char p = o;
+
+//ref d şeklinde kullanıyorsak yani bir değişkenin referansını direk olarak başka bir değişkenin referansına atıyorsak bu ref local olarak adlandırılır.
+char d = 'a';
+ref char e =ref  d;
+
+
 #endregion
